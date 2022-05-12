@@ -1,11 +1,12 @@
-var workloadlocation = 'westcentralus'
-var NATSubnetName = 'plsnat'
+@description('a prefix to put on all publicip dns labels to make it more unique')
+param publicipprefix string = resourceGroup().name
 
-param identityname string = 'n4ami'
+param mainLocation string = 'eastus2'
+param altLocation string = 'westcentralus'
 
 resource allowall 'Microsoft.Network/networkSecurityGroups@2019-04-01' = {
-  name: 'nsg'
-  location: workloadlocation
+  name: 'workload-allowall'
+  location: mainLocation
   properties: {
     securityRules: [
       {
@@ -29,26 +30,28 @@ resource allowall 'Microsoft.Network/networkSecurityGroups@2019-04-01' = {
 }
 
 resource vnet 'Microsoft.Network/virtualNetworks@2019-04-01' = {
-  name: 'vnet'
-  location: workloadlocation
+  name: 'mainvnet'
+  location: mainLocation
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '172.24.0.0/16'
+        '192.168.32.0/19'
       ]
     }
     subnets: [
       {
-        name: NATSubnetName
+        name: 'workload'
         properties: {
-          addressPrefix: '172.24.0.0/24'
-          privateLinkServiceNetworkPolicies: 'Disabled'
+          addressPrefix: '192.168.32.0/24'
+          networkSecurityGroup: {
+            id: allowall.id
+          }
         }
       }
       {
-        name: 'workload'
+        name: 'n4a'
         properties: {
-          addressPrefix: '172.24.1.0/24'
+          addressPrefix: '192.168.33.0/24'
           networkSecurityGroup: {
             id: allowall.id
           }
@@ -58,22 +61,28 @@ resource vnet 'Microsoft.Network/virtualNetworks@2019-04-01' = {
   }
 }
 
-// module pls 'pls.bicep' = {
-//   name: 'pls'
-//   params: {
-//     location: workloadlocation
-//     name: 'njbmtpls'
-//     subnetid: '${vnet.id}/subnets/${NATSubnetName}'
-//   }
-// }
+resource akv 'Microsoft.KeyVault/vaults@2021-10-01' = {
+  name: '${publicipprefix}-akv'
+  location: mainLocation
+
+  properties: {
+    tenantId: subscription().tenantId
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    enableRbacAuthorization: true
+    softDeleteRetentionInDays: 7
+  }
+}
 
 module wombat 'workload.bicep' = {
   name: 'wombat'
   params: {
     name: 'wombat'
-    workloadlocation: workloadlocation
+    workloadlocation: mainLocation
     subnetid: '${vnet.id}/subnets/workload'
-    //backendPoolId: pls.outputs.backendPoolId
+    //publiciplabel: '${publicipprefix}-wombat'
   }
 }
 
@@ -81,28 +90,39 @@ module wizard 'workload.bicep' = {
   name: 'wizard'
   params: {
     name: 'wizard'
-    workloadlocation: workloadlocation
+    workloadlocation: mainLocation
     subnetid: '${vnet.id}/subnets/workload'
-    //backendPoolId: pls.outputs.backendPoolId
+    //publiciplabel: '${publicipprefix}-wizard'
   }
 }
 
-resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: identityname
-  location: workloadlocation
-}
+// this can't be a multiline string becuase then variables aren't interpolated
+var upstreamservers = 'server ${wombat.outputs.ip};\nserver ${wizard.outputs.ip};'
 
-module n1 'nalb.bicep' = {
+module n1 'n4a.bicep' = {
   name: 'n1'
   params: {
-    location: workloadlocation
-    workloadIP: 'server http://${wombat.outputs.ip};\nserver http://${wizard.outputs.ip};\n'
-    managedIdentityId: resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', identityname)
-    vnetName: 'njbmtn1'
+    name: 'n4ademo'
+    location: altLocation
+    upstreams: upstreamservers
+
     vnetAddress: '172.25.1.0/24'
     vnetPeerWithId: vnet.id
-    publicIPName: 'njbmtn1'
-    nginxDeploymentName: 'njbmtn1'
-    nsgId: allowall.id
+    publiciplabel: '${publicipprefix}-n4ademo'
   }
 }
+
+resource n1peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-06-01' = {
+  parent: vnet
+  name: 'peerWith${n1.name}'
+  properties: {
+    allowForwardedTraffic: true
+    allowVirtualNetworkAccess: true
+    remoteVirtualNetwork: {
+      id: n1.outputs.vnetid
+    }
+  }
+}
+
+output n4ademofqdn string = n1.outputs.fqdn
+output akvname string = akv.name

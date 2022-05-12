@@ -3,10 +3,9 @@ param workloadlocation string
 param subnetid string
 
 param name string
+param publiciplabel string = ''
 
-param backendPoolId string = ''
-
-resource workloadvmpip 'Microsoft.Network/publicIpAddresses@2019-04-01' = {
+resource pip 'Microsoft.Network/publicIpAddresses@2019-04-01' = if (!empty(publiciplabel)) {
   name: name
   location: workloadlocation
   sku: {
@@ -15,7 +14,7 @@ resource workloadvmpip 'Microsoft.Network/publicIpAddresses@2019-04-01' = {
   properties: {
     publicIPAllocationMethod: 'Static'
     dnsSettings: {
-      domainNameLabel: name
+      domainNameLabel: publiciplabel
     }
   }
 }
@@ -34,14 +33,9 @@ resource workloadvmnic 'Microsoft.Network/networkInterfaces@2020-06-01' = {
           subnet: {
             id: subnetid
           }
-          loadBalancerBackendAddressPools: backendPoolId == '' ? [] : [
-            {
-              id: backendPoolId
-            }
-          ]
-          // pip looks to be optional
-          publicIPAddress: {
-            id: workloadvmpip.id
+
+          publicIPAddress: (empty(publiciplabel)) ? null : {
+            id: resourceId('Microsoft.Network/publicIpAddresses', name)
           }
         }
       }
@@ -56,11 +50,11 @@ packages:
 write_files:
   - path: /etc/nginx/sites-available/default
     content: |
-      server {{
+      server {
         listen 80 default_server;
         location / {
           default_type text/html;
-          return 200 '<!DOCTYPE html><h2>Hello from $hostname!</h2>\n';
+          return 200 '<!DOCTYPE html><h2>Hello from $hostname at $server_addr!</h2>\n';
         }
       }
 runcmd:
