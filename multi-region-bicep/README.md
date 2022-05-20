@@ -1,6 +1,30 @@
 # Demo
 
-## What it's building
+## Creating one NGINX for Azure instance
+
+```
+# Put your initials in the group name -- it must be something uniquish as it is the basis for dns names.
+location=australiaeast group=njb-$location sub=f5-AZR_7899_PTG_SVC_LBaaS_DEV03 name=nb3${location}-$(openssl rand -hex 1) #vars
+
+az group create -n $group --location $location  ## Create resource group
+
+depopts=(
+   --template-file n4a.bicep
+   --resource-group=$group
+   --subscription=$sub
+   --name=$name # The name of the Azure deployment
+   -p name=$name # the name to give to N4a and resources
+   -p location=$location
+   -p vnetName=$group
+   --query "properties.outputs.http"
+)
+
+az deployment group create "${depots[@]}"
+
+```
+
+## More complex setup
+### What it's building
 
 This is building two VNetsL main and peered. They are in different
 regions but peered together. The concept here is similar to a hub and
@@ -19,7 +43,7 @@ mainVnet    <-----------------> peeredVNet
 
 ```
 
-## Prereqs
+### Prereqs
 
 * Recent `az` cli install
 * bash
@@ -28,7 +52,7 @@ mainVnet    <-----------------> peeredVNet
   * `Key Vault Administrator` -- this allows the data actions on the keyvault (not directly granted by owner).
 
 
-## Running it
+### Running it
 
 1. `export group=my-unique-name`  -- we use this name for AZ DNS entries, so needs to be globally unique
 2. `az group create -n $group --location eastus2` -- create a resource group for everything to go in
