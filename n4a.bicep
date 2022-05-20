@@ -20,7 +20,7 @@ param vnetName string = name
 
 @description('Details of vnet to create')
 param vnetAddress string = '172.25.1.0/24'
-param vnetPeerWithId string = ''
+param vnetPeerWithVnet string = ''
 
 @description('Enable publishing metrics data from NGINX deployment')
 param enableMetrics bool = true
@@ -73,14 +73,25 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = if (!empty(vnetAd
       }
     ]
   }
-  resource peerWithMain 'virtualNetworkPeerings' = if (!empty(vnetPeerWithId)) {
+  resource peerWithMain 'virtualNetworkPeerings' = if (!empty(vnetPeerWithVnet)) {
     name: 'peerWithMain'
     properties: {
       allowForwardedTraffic: true
       allowVirtualNetworkAccess: true
       remoteVirtualNetwork: {
-        id: vnetPeerWithId
+        id: resourceId('Microsoft.Network/virtualNetworks', vnetPeerWithVnet)
       }
+    }
+  }
+}
+
+resource reversePeerWithMain 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-06-01' = if (!empty(vnetPeerWithVnet)) {
+  name: '${vnetPeerWithVnet}/peerWith${vnet.name}'
+  properties: {
+    allowForwardedTraffic: true
+    allowVirtualNetworkAccess: true
+    remoteVirtualNetwork: {
+      id: vnet.id
     }
   }
 }
