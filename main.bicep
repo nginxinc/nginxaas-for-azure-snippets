@@ -2,7 +2,12 @@
 param publicipprefix string = resourceGroup().name
 
 param mainLocation string = 'eastus2'
-param altLocation string = 'westcentralus'
+param n4aregions array = [
+  'eastus2'
+  'westus'
+  'westeurope'
+  'australiaeast'
+]
 
 resource allowall 'Microsoft.Network/networkSecurityGroups@2019-04-01' = {
   name: 'workload-allowall'
@@ -99,30 +104,18 @@ module wizard 'workload.bicep' = {
 // this can't be a multiline string becuase then variables aren't interpolated
 var upstreamservers = 'server ${wombat.outputs.ip};\nserver ${wizard.outputs.ip};'
 
-module n1 'n4a.bicep' = {
-  name: 'n1'
+module n4as 'n4a.bicep' = [for i in range(0, length(n4aregions)): {
+  name: 'n4ademo${n4aregions[i]}'
   params: {
-    name: 'n4ademo'
-    location: altLocation
+    name: 'n4ademo${n4aregions[i]}'
+    location: n4aregions[i]
     upstreams: upstreamservers
 
-    vnetAddress: '172.25.1.0/24'
-    vnetPeerWithId: vnet.id
-    publiciplabel: '${publicipprefix}-n4ademo'
+    vnetAddress: '172.25.${i}.0/24'
+    vnetPeerWithVnet: vnet.name
+    publiciplabel: '${publicipprefix}-n4ademo${n4aregions[i]}'
   }
-}
+}]
 
-resource n1peer 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-06-01' = {
-  parent: vnet
-  name: 'peerWith${n1.name}'
-  properties: {
-    allowForwardedTraffic: true
-    allowVirtualNetworkAccess: true
-    remoteVirtualNetwork: {
-      id: n1.outputs.vnetid
-    }
-  }
-}
-
-output n4ademofqdn string = n1.outputs.fqdn
+output fqdns array = [for i in range(0, length(n4aregions)): n4as[i].outputs.fqdn]
 output akvname string = akv.name
