@@ -51,6 +51,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2019-04-01' = if (!empty(v
   }
 }
 
+var peerwithid = (empty(vnetPeerWithVnet)) ? '' : resourceId('Microsoft.Network/virtualNetworks', vnetPeerWithVnet)
 resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = if (!empty(vnetAddress)) {
   name: vnetName
   location: location
@@ -79,22 +80,22 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = if (!empty(vnetAd
       allowForwardedTraffic: true
       allowVirtualNetworkAccess: true
       remoteVirtualNetwork: {
-        id: resourceId('Microsoft.Network/virtualNetworks', vnetPeerWithVnet)
+        id: peerwithid
       }
     }
   }
 }
 
-resource reversePeerWithMain 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-06-01' = if (!empty(vnetPeerWithVnet)) {
-  name: '${vnetPeerWithVnet}/peerWith${vnet.name}'
-  properties: {
-    allowForwardedTraffic: true
-    allowVirtualNetworkAccess: true
-    remoteVirtualNetwork: {
-      id: vnet.id
-    }
-  }
-}
+// resource reversePeerWithMain 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-06-01' = if (!empty(vnetPeerWithVnet)) {
+//   name: '${vnetPeerWithVnet}/peerWith${vnet.name}'
+//   properties: {
+//     allowForwardedTraffic: true
+//     allowVirtualNetworkAccess: true
+//     remoteVirtualNetwork: {
+//       id: vnet.id
+//     }
+//   }
+// }
 
 resource pip 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: name
