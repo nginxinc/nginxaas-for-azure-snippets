@@ -169,7 +169,7 @@ http {{
   upstream app-1 {{
     zone app-1 64k;
     least_conn;
-    {0}
+{0}
   }}
 
   server {{
