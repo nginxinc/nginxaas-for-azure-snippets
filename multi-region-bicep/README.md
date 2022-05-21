@@ -6,7 +6,7 @@
 # Put your initials in the group name -- it must be something uniquish as it is the basis for dns names.
 location=australiaeast group=njb-$location sub=f5-AZR_7899_PTG_SVC_LBaaS_DEV03 name=nb3${location}-$(openssl rand -hex 1) #vars
 
-az group create -n $group --location $location  ## Create resource group
+az group create -n $group --location $location --subscription=$sub  ## Create resource group
 
 depopts=(
    --template-file n4a.bicep
@@ -19,7 +19,7 @@ depopts=(
    --query "properties.outputs.http"
 )
 
-az deployment group create "${depots[@]}"
+az deployment group create "${depopts[@]}"
 
 ```
 
