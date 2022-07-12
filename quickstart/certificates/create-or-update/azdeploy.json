@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "nginxDeploymentName": {
+            "type": "string",
+            "defaultValue": "myDeployment",
+            "metadata": {
+                "description": "The name of the NGINX deployment resource to deploy the certificate"
+            }
+        },
+        "certificateName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the NGINX certificate resource"
+            }
+        },
+        "certificateVirtualPath": {
+            "type": "string",
+            "defaultValue": "/etc/ssl/my-cert.crt",
+            "metadata": {
+                "description": "The file path of the NGINX certificate file"
+            }
+        },
+        "keyVirtualPath": {
+            "type": "string",
+            "defaultValue": "/etc/ssl/my-cert.key",
+            "metadata": {
+                "description": "The file path of the NGINX certificate key file"
+            }
+        },
+        "keyVaultSecretId": {
+            "type": "string",
+            "metadata": {
+                "description": "The URI to the AKV secret for the certificate"
+            }
+        }
+    },
+    "resources": [
+        {
+            "type": "NGINX.NGINXPLUS/nginxDeployments/certificates",
+            "apiVersion": "2021-05-01-preview",
+            "name": "[concat(parameters('nginxDeploymentName'), '/', parameters('certificateName'))]",
+            "properties": {
+                "certificateVirtualPath": "[parameters('certificateVirtualPath')]",
+                "keyVirtualPath": "[parameters('keyVirtualPath')]",
+                "keyVaultSecretId": "[parameters('keyVaultSecretId')]"
+            }
+        }
+    ]
+}
