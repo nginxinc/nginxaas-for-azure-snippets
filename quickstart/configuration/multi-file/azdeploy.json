@@ -5,20 +5,20 @@
         "nginxDeploymentName": {
             "type": "string",
             "metadata": {
-                "description": "The name of the NGINX deployment resource to deploy the configuration."
+                "description": "The name of the NGINX deployment resource to deploy the configuration"
             }
         },
         "rootFile": {
             "type": "string",
             "defaultValue": "/etc/nginx/nginx.conf",
             "metadata": {
-                "description": "The file path of the root NGINX configuration file."
+                "description": "The file path of the root NGINX configuration file"
             }
         },
         "tarball": {
             "type": "string",
             "metadata": {
-                "description": "The based64 encoded NGINX configuration tarball."
+                "description": "The based64 encoded NGINX configuration tarball"
             }
         }
     },

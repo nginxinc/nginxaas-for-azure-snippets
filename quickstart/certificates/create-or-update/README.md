@@ -1,11 +1,11 @@
 ---
-description: Create an NGINX for Azure Certificate for a NGINX deployment using an existing certificate in an Azure Key Vault.
+description: Create or update an NGINX for Azure certificate for a NGINX deployment using an existing certificate in an Azure Key Vault.
 languages:
 - json
 - bicep
 ---
 
-# Add a NGINX for Azure Deployment Certificate.
+# Add a NGINX for Azure deployment certificate.
 
 ## Prerequisites
 - [NGINX documentation](https://docs.nginx.com/nginx-for-azure/management/ssl-tls-certificates/)
@@ -23,7 +23,7 @@ This template provides a way to deploy a **NGINX Deployment Certificate** to a *
 
 If you're new to **NGINX for Azure**, see:
 
-- [NGINX For Azure documentation](https://docs.nginx.com/nginx-for-azure/)
+- [NGINX for Azure documentation](https://docs.nginx.com/nginx-for-azure/)
 
 
 If you're new to **Azure Key Vault**, see:

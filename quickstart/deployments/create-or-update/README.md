@@ -1,11 +1,11 @@
 ---
-description: Creat or update an NGINX for Azure deployment in a resource group associated with a public IP address.
+description: Create or update an NGINX for Azure deployment in a resource group associated with a public IP address.
 languages:
 - json
 - bicep
 ---
 
-# Creates an NGINX for Azure Deployment.
+# Creates an NGINX for Azure deployment.
 
 ### Usage
 ```
@@ -17,7 +17,7 @@ This template provides a way to deploy a **NGINX Deployment** in a **Resource Gr
 
 If you're new to **NGINX for Azure**, see:
 
-- [NGINX For Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
+- [NGINX for Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
 
 If you're new to template deployment, see:
 
