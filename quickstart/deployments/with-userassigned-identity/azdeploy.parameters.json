@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westus",
+            "type": "string"
+        },
+        "nginxDeploymentName": {
+            "value": "myDeployment",
+            "type": "string"
+        },
+        "sku": {
+            "value": "publicpreview_Monthly_gmz7xq9ge3py",
+            "type": "string"
+        },
+        "publicIPName": {
+            "value": "myPublicIP",
+            "type": "string"
+        },
+        "subnetName": {
+            "value": "mySubnet",
+            "type": "string"
+        },
+        "userAssignedIdentityName": {
+            "value": "myManagedIdentity",
+            "type": "string"
+        },
+        "virtualNetworkName": {
+            "value": "myVirtualNetwork",
+            "type": "string"
+        },
+        "enableMetrics": {
+            "value": false,
+            "type": "bool"
+        }
+    }
+}
