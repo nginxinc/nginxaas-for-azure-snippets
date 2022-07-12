@@ -1,0 +1,26 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westus",
+            "type": "string"
+        },
+        "nginxDeploymentName": {
+            "value": "myDeployment",
+            "type": "string"
+        },
+        "certificateName": {
+            "value": "myCertificate",
+            "type": "string"
+        },
+        "certificateVirtualPath": {
+            "value": "/etc/ssl/example.com.crt",
+            "type": "string"
+        },
+        "keyVirtualPath": {
+            "value": "/etc/ssl/example.com.key",
+            "type": "string"
+        }
+    }
+}
