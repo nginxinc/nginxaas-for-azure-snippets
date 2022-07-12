@@ -5,13 +5,13 @@ languages:
 - bicep
 ---
 
-# Create an NGINX for Azure Deployment Configuration.
+# Create an NGINX for Azure deployment configuration.
 
 ## Prerequisites
 - Existing NGINX deployment
     - [Quickstart Template](../../deployments/create-or-update/README.md)
 - If certificates are in the NGINX configuration ensure that those certificates have been added to the NGINX deployment
-    - [Add Certificate Quickstart Template](../../certificates/add/README.md)
+    - [Create or Update Certificate Quickstart Template](../../certificates/create-or-update/README.md)
 
 ### Usage
 ```
@@ -23,8 +23,8 @@ This template provides a way to deploy a **NGINX Deployment Configuration** to a
 
 If you're new to **NGINX for Azure**, see:
 
-- [NGINX For Azure documentation](https://docs.nginx.com/nginx-for-azure/)
-- [NGINX For Azure Configuration documentation](https://docs.nginx.com/nginx-for-azure/management/nginx-configuration/)
+- [NGINX for Azure documentation](https://docs.nginx.com/nginx-for-azure/)
+- [NGINX for Azure Configuration documentation](https://docs.nginx.com/nginx-for-azure/management/nginx-configuration/)
 
 If you're new to **NGINX Configurations**, see:
 - [NGINX documentation](https://nginx.org/en/docs/)

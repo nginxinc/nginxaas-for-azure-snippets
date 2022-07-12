@@ -5,7 +5,7 @@
         "nginxDeploymentName": {
             "type": "string",
             "metadata": {
-                "description": "The name of the NGINX deployment resource to deploy the configuration."
+                "description": "The name of the NGINX deployment resource to deploy the configuration"
             }
         },
         "rootConfigFilePath": {

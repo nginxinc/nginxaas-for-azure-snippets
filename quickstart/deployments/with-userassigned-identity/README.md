@@ -5,7 +5,7 @@ languages:
 - bicep
 ---
 
-# Create an NGINX for Azure Deployment with User Assigned Managed Identity
+# Create an NGINX for Azure deployment with User Assigned Managed Identity
 
 ### Usage
 ```
@@ -17,8 +17,8 @@ This template provides a way to deploy a **NGINX Deployment** in a **Resource Gr
 
 If you're new to **NGINX for Azure**, see:
 
-- [NGINX For Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
-- [NGINX For Azure Managed Identity Documentation](https://docs.nginx.com/nginx-for-azure/management/managed-identity/)
+- [NGINX for Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
+- [NGINX for Azure Managed Identity Documentation](https://docs.nginx.com/nginx-for-azure/management/managed-identity/)
 
 If you're new to **Managed Identities**, see:
 
