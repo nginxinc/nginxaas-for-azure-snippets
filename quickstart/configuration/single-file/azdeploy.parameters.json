@@ -1,0 +1,22 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "westus",
+            "type": "string"
+        },
+        "nginxDeploymentName": {
+            "value": "myDeployment",
+            "type": "string"
+        },
+        "rootConfigFilePath": {
+            "value": "nginx.conf",
+            "type": "string"
+        },
+        "rootConfigContent": {
+            "value": "",
+            "type": "string"
+        }
+    }
+}
