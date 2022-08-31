@@ -1,0 +1,34 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "value": "westus"
+        },
+        "networkSecurityGroupName": {
+            "type": "string",
+            "value": "myNsg"
+        },
+        "publicIPName": {
+            "type": "string",
+            "value": "myPublicIP"
+        },
+        "virtualNetworkName": {
+            "type": "string",
+            "value": "myVnet"
+        },
+        "virtualNetworkAddressPrefix": {
+            "type": "string",
+            "value": "10.0.0.0/16"
+        },
+        "subnetName": {
+            "type": "string",
+            "value": "mySubnet"
+        },
+        "subnetAddressPrefix": {
+            "type": "string",
+            "value": "10.0.0.0/24"
+        }
+    }
+}
