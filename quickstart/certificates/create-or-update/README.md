@@ -5,7 +5,7 @@ languages:
 - bicep
 ---
 
-# Add a NGINX for Azure deployment certificate.
+# Add an NGINX for Azure deployment certificate.
 
 ## Prerequisites
 - [NGINX documentation](https://docs.nginx.com/nginx-for-azure/management/ssl-tls-certificates/)
