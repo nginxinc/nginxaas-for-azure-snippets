@@ -11,5 +11,5 @@ These snippets require an authenticated Azure Resource Manager client like the [
 
 ### Code Snippets
 
-- [ARM Template](./snippets/templates/README.md)
+- [ARM Template](./snippets/arm-templates/README.md)
 - [Terraform](snippets/terraform/README.md)
