@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 module "prerequisites" {
-  source   = "../../prerequisites"
+  source   = "../prerequisites"
   location = var.location
   name     = var.name
   tags     = var.tags
@@ -25,7 +25,7 @@ resource "azurerm_nginx_deployment" "example" {
   sku                      = var.sku
   location                 = var.location
   managed_resource_group   = "example"
-  diagnose_support_enabled = true
+  diagnose_support_enabled = false
 
   identity {
     type         = "UserAssigned"
@@ -42,8 +42,17 @@ resource "azurerm_nginx_deployment" "example" {
   tags = var.tags
 }
 
-resource "azurerm_role_assignment" "example" {
-  scope                = azurerm_nginx_deployment.example.id
-  role_definition_name = "Monitoring Metrics Publisher"
-  principal_id         = module.prerequisites.managed_identity_principal_id
+resource "azurerm_nginx_configuration" "example" {
+  nginx_deployment_id = azurerm_nginx_deployment.example.id
+  root_file           = "/etc/nginx/nginx.conf"
+
+  config_file {
+    content      = filebase64("${path.module}/nginx.conf")
+    virtual_path = "/etc/nginx/nginx.conf"
+  }
+
+  config_file {
+    content      = filebase64("${path.module}/api.conf")
+    virtual_path = "/etc/nginx/site/api.conf"
+  }
 }
