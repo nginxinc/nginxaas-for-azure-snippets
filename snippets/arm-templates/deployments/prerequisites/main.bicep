@@ -19,7 +19,7 @@ param subnetName string = 'mySubnet'
 @description('Address prefix to use for subnet')
 param subnetAddressPrefix string
 
-resource publicIP 'Microsoft.Network/publicIPAddresses@2019-02-01' = {
+resource publicIP 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: publicIPName
   location: location
   sku: {
