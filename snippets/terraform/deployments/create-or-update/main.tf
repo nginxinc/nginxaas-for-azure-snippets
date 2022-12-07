@@ -24,7 +24,6 @@ resource "azurerm_nginx_deployment" "example" {
   resource_group_name      = module.prerequisites.resource_group_name
   sku                      = var.sku
   location                 = var.location
-  managed_resource_group   = "example"
   diagnose_support_enabled = true
 
   identity {
