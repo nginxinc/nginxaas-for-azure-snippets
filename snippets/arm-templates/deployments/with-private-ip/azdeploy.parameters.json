@@ -11,7 +11,7 @@
             "type": "string"
         },
         "sku": {
-            "value": "publicpreview_Monthly_gmz7xq9ge3py",
+            "value": "standard_Monthly",
             "type": "string"
         },
         "subnetName": {
