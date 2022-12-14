@@ -65,7 +65,7 @@ def main():
         GROUP_NAME,
         DEPLOYMENT_NAME,
         {
-            "sku": {"name": "preview_Monthly_gmz7xq9ge3py"},
+            "sku": {"name": "publicpreview_Monthly_gmz7xq9ge3py"},
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
             "identity": {
