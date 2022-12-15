@@ -5,8 +5,8 @@
 
 If you are new to NGINXaaS for Azure:
 
-- [NGINX for Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
-- [Prerequisite Documentation](https://docs.nginx.com/nginx-for-azure/quickstart/prerequisites/)
+- [NGINXaaS for Azure Documentation](https://docs.nginx.com/nginxaas/azure/)
+- [Prerequisite Documentation](https://docs.nginx.com/nginxaas/azure/quickstart/prerequisites/)
 
 If you are new to template deployment, see:
 

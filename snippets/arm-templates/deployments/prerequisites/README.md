@@ -1,11 +1,11 @@
 ---
-description: Create bare minimum prerequisite resources for an NGINX for Azure deployment.
+description: Create bare minimum prerequisite resources for an NGINXaaS for Azure deployment.
 languages:
 - json
 - bicep
 ---
 
-# Create prerequisite resources for an NGINX for Azure deployment.
+# Create prerequisite resources for an NGINXaaS for Azure deployment.
 
 ### Usage
 ```
@@ -16,10 +16,10 @@ az deployment group create  --name myName  --resource-group myGroup --template-f
 
 This template provides a way to deploy minimum prerequisites for an **NGINX Deployment** in a **Resource Group**.
 
-If you're new to **NGINX for Azure**, see:
+If you're new to **NGINXaaS for Azure**, see:
 
-- [NGINX for Azure Documentation](https://docs.nginx.com/nginx-for-azure/)
-- [Prerequisite Documentation](https://docs.nginx.com/nginx-for-azure/quickstart/prerequisites/)
+- [NGINXaaS for Azure Documentation](https://docs.nginx.com/nginxaas/azure/)
+- [Prerequisite Documentation](https://docs.nginx.com/nginxaas/azure/quickstart/prerequisites/)
 
 If you're new to template deployment, see:
 
