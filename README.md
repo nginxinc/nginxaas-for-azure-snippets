@@ -1,6 +1,6 @@
-# NGINX For Azure Snippets
+# NGINXaaS for Azure Snippets
 
-This repository contains code snippets for common [NGINX for Azure](https://docs.nginx.com/nginx-for-azure/) use cases. These snippets can be leveraged in applications or as infrastructure as code and in CI workflows to automate the creation or update of NGINX for Azure deployment resources.
+This repository contains code snippets for common [NGINXaaS for Azure](https://docs.nginx.com/nginxaas/azure/) use cases. These snippets can be leveraged in applications or as infrastructure as code and in CI workflows to automate the creation or update of NGINXaaS for Azure deployment resources.
 
 ### Connecting to Azure
 
