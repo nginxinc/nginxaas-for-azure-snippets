@@ -42,7 +42,7 @@ def main():
         GROUP_NAME,
         DEPLOYMENT_NAME,
         {
-            "sku": {"name": "publicpreview_Monthly_gmz7xq9ge3py"},
+            "sku": {"name": "standard_Monthly"},
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
             "identity": {
@@ -66,7 +66,7 @@ def main():
         GROUP_NAME,
         DEPLOYMENT_NAME,
         {
-            "sku": {"name": "publicpreview_Monthly_gmz7xq9ge3py"},
+            "sku": {"name": "standard_Monthly"},
             "tags": {"myNewTag": "myNewValue"},
             "location": LOCATION,
             "properties": {

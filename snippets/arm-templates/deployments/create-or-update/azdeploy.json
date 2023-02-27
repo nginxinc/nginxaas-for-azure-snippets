@@ -18,7 +18,7 @@
         },
         "sku": {
             "type": "string",
-            "defaultValue": "publicpreview_Monthly_gmz7xq9ge3py",
+            "defaultValue": "standard_Monthly",
             "metadata": {
                 "description": "SKU of NGINX deployment"
             }

@@ -10,7 +10,7 @@ variable "name" {
 
 variable "sku" {
   description = "SKU of NGINXaaS deployment."
-  default     = "publicpreview_Monthly_gmz7xq9ge3py"
+  default     = "standard_Monthly"
 }
 
 variable "tags" {
