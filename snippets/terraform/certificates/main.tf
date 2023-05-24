@@ -41,6 +41,13 @@ resource "azurerm_key_vault" "example" {
   tags = var.tags
 }
 
+# This will give the current user admin permissions on the key vault
+resource "azurerm_role_assignment" "current_user" {
+    scope                = azurerm_key_vault.example.id
+    role_definition_name = "Key Vault Administrator"
+    principal_id         = data.azurerm_client_config.current.object_id
+}
+
 resource "azurerm_key_vault_certificate" "example" {
   name         = var.name
   key_vault_id = azurerm_key_vault.example.id
@@ -90,6 +97,7 @@ resource "azurerm_key_vault_certificate" "example" {
       validity_in_months = 12
     }
   }
+  depends_on = [ azurerm_role_assignment.current_user ]
 }
 
 resource "azurerm_role_assignment" "example" {
