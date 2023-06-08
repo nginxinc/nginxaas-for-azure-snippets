@@ -153,4 +153,10 @@ resource "azurerm_nginx_configuration" "example" {
   depends_on = [
     azurerm_nginx_certificate.example
   ]
+
+  lifecycle {
+    replace_triggered_by = [
+      azurerm_nginx_certificate.example
+    ]
+  }
 }
