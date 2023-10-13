@@ -1,4 +1,4 @@
 output "ip_address" {
   description = "IP address of NGINXaaS deployment."
-  value       = azurerm_nginx_deployment.example.ip_address
+  value       = jsondecode(azapi_resource.nginx.output).properties.ipAddress
 }

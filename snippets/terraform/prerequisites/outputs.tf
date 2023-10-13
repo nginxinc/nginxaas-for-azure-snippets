@@ -3,6 +3,11 @@ output "resource_group_name" {
   value       = azurerm_resource_group.example.name
 }
 
+output "resource_group_id" {
+  description = "ID of the resource group."
+  value       = azurerm_resource_group.example.id
+}
+
 output "managed_identity_id" {
   description = "ID of the managed identity."
   value       = azurerm_user_assigned_identity.example.id
