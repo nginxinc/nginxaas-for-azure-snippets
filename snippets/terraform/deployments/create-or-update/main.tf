@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.57"
+      version = "~> 3.77"
     }
   }
 }
@@ -24,6 +24,7 @@ resource "azurerm_nginx_deployment" "example" {
   resource_group_name      = module.prerequisites.resource_group_name
   sku                      = var.sku
   location                 = var.location
+  capacity                 = 50
   diagnose_support_enabled = true
 
   identity {

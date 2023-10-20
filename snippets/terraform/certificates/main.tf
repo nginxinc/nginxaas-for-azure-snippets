@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.57"
+      version = "~> 3.77"
     }
   }
 }
@@ -43,9 +43,9 @@ resource "azurerm_key_vault" "example" {
 
 # This will give the current user admin permissions on the key vault
 resource "azurerm_role_assignment" "current_user" {
-    scope                = azurerm_key_vault.example.id
-    role_definition_name = "Key Vault Administrator"
-    principal_id         = data.azurerm_client_config.current.object_id
+  scope                = azurerm_key_vault.example.id
+  role_definition_name = "Key Vault Administrator"
+  principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_key_vault_certificate" "example" {
@@ -97,7 +97,7 @@ resource "azurerm_key_vault_certificate" "example" {
       validity_in_months = 12
     }
   }
-  depends_on = [ azurerm_role_assignment.current_user ]
+  depends_on = [azurerm_role_assignment.current_user]
 }
 
 resource "azurerm_role_assignment" "example" {
