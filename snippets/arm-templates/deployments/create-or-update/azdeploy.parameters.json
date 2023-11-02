@@ -29,6 +29,10 @@
         "virtualNetworkName": {
             "value": "myVirtualNetwork",
             "type": "string"
+        },
+        "capacity": {
+            "value": 50,
+            "type": "int"
         }
     }
 }

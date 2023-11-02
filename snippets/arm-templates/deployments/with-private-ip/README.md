@@ -10,7 +10,7 @@ languages:
 ### Usage
 ```
 az deployment group create  --name myName  --resource-group myGroup --template-file azdeploy.json \
-    --parameters subnetName=mySubnet virtualNetworkName=myVnet privateIPAddress=10.0.1.4
+    --parameters subnetName=mySubnet virtualNetworkName=myVnet privateIPAddress=10.0.1.4 capacity=50
 ```
 
 This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**. This service is still in **Public Preview**.

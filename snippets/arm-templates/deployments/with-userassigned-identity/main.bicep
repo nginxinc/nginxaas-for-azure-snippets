@@ -22,6 +22,9 @@ param virtualNetworkName string
 @description('Enable publishing metrics data from NGINX deployment')
 param enableMetrics bool = false
 
+@description('Capacity in NCUs to assign the NGINX deployment')
+param capacity int = 50
+
 resource publicIP 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   name: publicIPName
   location: location
@@ -37,7 +40,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
   }
 }
 
-resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2021-05-01-preview' = {
+resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-04-01' = {
   name: nginxDeploymentName
   location: location
   sku: {
@@ -64,6 +67,9 @@ resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2021-05-01-preview' = {
       networkInterfaceConfiguration: {
         subnetId: resourceId('Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
       }
+    }
+    scalingProperties: {
+      capacity: capacity
     }
   }
 }

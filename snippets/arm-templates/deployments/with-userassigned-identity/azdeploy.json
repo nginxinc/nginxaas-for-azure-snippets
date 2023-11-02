@@ -55,6 +55,13 @@
             "metadata": {
                 "description": "Enable publishing metrics data from NGINX deployment"
             }
+        },
+        "capacity": {
+            "type": "int",
+            "defaultValue": 50,
+            "metadata": {
+                "description": "Capacity in NCUs to assign the NGINX deployment"
+            }
         }
     },
     "resources": [
@@ -75,7 +82,7 @@
         },
         {
             "type": "NGINX.NGINXPLUS/nginxDeployments",
-            "apiVersion": "2021-05-01-preview",
+            "apiVersion": "2023-04-01",
             "name": "[parameters('nginxDeploymentName')]",
             "location": "[parameters('location')]",
             "sku": {
@@ -101,6 +108,9 @@
                     "networkInterfaceConfiguration": {
                         "subnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), parameters('subnetName'))]"
                     }
+                },
+                "scalingProperties": {
+                    "capacity": "[parameters('capacity')]"
                 }
             }
         }
