@@ -13,7 +13,7 @@ param keyVirtualPath string = '/etc/ssl/my-cert.key'
 @description('The URI to the AKV secret for the certificate')
 param keyVaultSecretId string
 
-resource certificate 'NGINX.NGINXPLUS/nginxDeployments/certificates@2021-05-01-preview' = {
+resource certificate 'NGINX.NGINXPLUS/nginxDeployments/certificates@2023-04-01' = {
   name: '${nginxDeploymentName}/${certificateName}'
   properties: {
     certificateVirtualPath: certificateVirtualPath
