@@ -24,7 +24,6 @@ def main():
     nginx_client.deployments.get(GROUP_NAME, DEPLOYMENT_NAME)
 
     # Read in our configuration archive
-    cwd = os.getcwd()
     filepath = os.path.join(os.path.dirname(__file__), "configs", "config.tar.gz")
     file = open(filepath, "rb")
     content = file.read()
