@@ -43,6 +43,12 @@ def main():
             "properties": {
                 "enableDiagnosticSupport": False,
                 "networkProfile": network_profile_public,
+                "scalingProperties": {
+                    "capacity": 20
+                },
+                "userProfile": {
+                    "preferredEmail": "user@f5.com"
+                }
             },
         },
     ).result()

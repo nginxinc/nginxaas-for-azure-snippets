@@ -86,6 +86,12 @@ def main():
                         "containerName": BLOB_CONTAINER_NAME,
                     }
                 },
+                "scalingProperties": {
+                    "capacity": 20
+                },
+                "userProfile": {
+                    "preferredEmail": "user@f5.com"
+                }
             },
         },
     ).result()

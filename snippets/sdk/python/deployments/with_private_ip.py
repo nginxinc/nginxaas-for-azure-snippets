@@ -4,7 +4,6 @@ import os
 
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.nginx import NginxManagementClient
-from azure.mgmt.network import NetworkManagementClient
 
 import prerequisites
 
@@ -21,7 +20,7 @@ def main():
         credential=DefaultAzureCredential(), subscription_id=SUBSCRIPTION_ID
     )
     # Create prerequisite resources
-    subnet, public_ip, identity = prerequisites.create()
+    subnet, _, identity = prerequisites.create()
 
     # - private IP configuration example
     network_profile_private = {
@@ -52,6 +51,12 @@ def main():
             "properties": {
                 "enableDiagnosticSupport": False,
                 "networkProfile": network_profile_private,
+                "scalingProperties": {
+                    "capacity": 20
+                },
+                "userProfile": {
+                    "preferredEmail": "user@f5.com"
+                }
             },
         },
     ).result()
