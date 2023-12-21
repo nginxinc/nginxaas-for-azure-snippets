@@ -150,6 +150,11 @@ resource "azurerm_nginx_configuration" "example" {
     virtual_path = "/etc/nginx/site/api.conf"
   }
 
+  config_file {
+    content      = filebase64("${path.module}/rootca.crl")
+    virtual_path = "/etc/nginx/ssl/rootca.crl"
+  }
+
   depends_on = [
     azurerm_nginx_certificate.example
   ]
