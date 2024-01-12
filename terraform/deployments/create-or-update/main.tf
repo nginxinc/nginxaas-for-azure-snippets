@@ -20,12 +20,13 @@ module "prerequisites" {
 }
 
 resource "azurerm_nginx_deployment" "example" {
-  name                     = var.name
-  resource_group_name      = module.prerequisites.resource_group_name
-  sku                      = var.sku
-  location                 = var.location
-  capacity                 = 20
-  diagnose_support_enabled = true
+  name                      = var.name
+  resource_group_name       = module.prerequisites.resource_group_name
+  sku                       = var.sku
+  location                  = var.location
+  capacity                  = 20
+  automatic_upgrade_channel = "stable"
+  diagnose_support_enabled  = true
 
   identity {
     type         = "UserAssigned"
