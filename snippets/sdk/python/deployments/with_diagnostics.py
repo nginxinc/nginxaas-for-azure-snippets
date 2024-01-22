@@ -42,6 +42,7 @@ def main():
             "sku": {"name": "Standard_LRS"},
             "kind": "BlobStorage",
             "location": LOCATION,
+            "accessTier": "Hot",
             "encryption": {
                 "services": {
                     "file": {"key_type": "Account", "enabled": True},
