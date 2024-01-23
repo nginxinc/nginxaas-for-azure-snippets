@@ -124,10 +124,12 @@ def create():
     print("Created a managed identity.\n")
     return subnet, public_ip, identity
 
+
 def delete():
     """Delete resources that are needed for NGINXaaS for Azure tutorials."""
     resource_client.resource_groups.begin_delete(GROUP_NAME).result()
     print("Deleted prerequisites resource group.\n")
+
 
 def main():
     create()

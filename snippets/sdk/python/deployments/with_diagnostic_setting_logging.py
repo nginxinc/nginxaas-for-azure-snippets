@@ -3,7 +3,7 @@
 import os
 
 from azure.identity import DefaultAzureCredential
-from azure.mgmt.authorization import AuthorizationManagementClient
+from azure.mgmt.monitor import MonitorManagementClient
 from azure.mgmt.nginx import NginxManagementClient
 from azure.mgmt.storage import StorageManagementClient
 
@@ -16,11 +16,10 @@ def main():
     LOCATION = "eastus"
     DEPLOYMENT_NAME = "myDeployment"
     STORAGE_ACCOUNT_NAME = "mystorageaccount12345"
-    BLOB_CONTAINER_NAME = "mylogcontainer"
 
     # Create clients
     # For other authentication approaches, please see: https://pypi.org/project/azure-identity/
-    auth_client = AuthorizationManagementClient(
+    monitoring_client = MonitorManagementClient(
         credential=DefaultAzureCredential(), subscription_id=SUBSCRIPTION_ID
     )
     nginx_client = NginxManagementClient(
@@ -31,11 +30,11 @@ def main():
     )
 
     # Create prerequisite resources
-    subnet, public_ip, identity = prerequisites.create()
+    subnet, public_ip, _ = prerequisites.create()
 
     # Create storage account
     # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/storage
-    storage_client.storage_accounts.begin_create(
+    storage_account = storage_client.storage_accounts.begin_create(
         GROUP_NAME,
         STORAGE_ACCOUNT_NAME,
         {
@@ -54,13 +53,6 @@ def main():
     ).result()
     print("Created a storage account.\n")
 
-    # Create blob container
-    # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/storage
-    storage_client.blob_containers.create(
-        GROUP_NAME, STORAGE_ACCOUNT_NAME, BLOB_CONTAINER_NAME, {}
-    )
-    print("Created a blob container.\n")
-
     # Create deployment with a public IP
     deployment = nginx_client.deployments.begin_create_or_update(
         GROUP_NAME,
@@ -70,8 +62,7 @@ def main():
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
             "identity": {
-                "type": "UserAssigned",
-                "userAssignedIdentities": {identity.id: {}},
+                "type": "SystemAssigned",
             },
             "properties": {
                 "enableDiagnosticSupport": True,
@@ -81,12 +72,6 @@ def main():
                         "publicIPAddresses": [{"id": public_ip.id}]
                     },
                 },
-                "logging": {
-                    "storageAccount": {
-                        "accountName": STORAGE_ACCOUNT_NAME,
-                        "containerName": BLOB_CONTAINER_NAME,
-                    }
-                },
                 "scalingProperties": {"capacity": 20},
                 "userProfile": {"preferredEmail": "user@f5.com"},
             },
@@ -94,28 +79,26 @@ def main():
     ).result()
     print("Created a deployment:\n{}".format(deployment))
 
-    # Give identity blob contributor role assignment
-    # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/authorization
-    # For a full list of Azure built-in roles see: https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
-    role_id = "ba92f5b4-2d11-453d-a403-e96b0029c9fe"
-    role_definition_id = "/".join(
-        [
-            "subscriptions",
-            SUBSCRIPTION_ID,
-            "providers/Microsoft.Authorization/roleDefinitions",
-            role_id,
-        ]
-    )
-    role_assignment = "88888888-7000-0000-0000-000000000003"  # arbitrary UUID
-    auth_client.role_assignments.create(
+    # Create diagnostic setting for the deployment
+    diagnostic_setting = monitoring_client.diagnostic_settings.create_or_update(
         deployment.id,
-        role_assignment,
+        "myDiagnosticSetting",
         {
-            "role_definition_id": role_definition_id,
-            "principal_id": identity.principal_id,
+            "storage_account_id": storage_account.id,
+            "logs": [
+                {
+                    "category": "NginxLogs",
+                    "enabled": True,
+                    "retention_policy": {"enabled": False, "days": "1"},
+                }
+            ],
         },
     )
-    print("Created a role assignment.\n")
+    print("Create diagnostic setting:\n{}".format(diagnostic_setting))
+
+    # Delete diagnostic setting
+    monitoring_client.diagnostic_settings.delete(deployment.id, "myDiagnosticSetting")
+    print("Deleted diagnostic setting.\n")
 
     # Delete a deployment
     nginx_client.deployments.begin_delete(GROUP_NAME, DEPLOYMENT_NAME).result()

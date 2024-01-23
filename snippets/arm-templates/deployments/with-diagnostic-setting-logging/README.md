@@ -1,16 +1,18 @@
 ---
-description: Create or update an NGINXaaS for Azure deployment in a resource group associated with a public IP address.
+description: Create or update an NGINXaaS for Azure deployment with a diagnostic setting for logging.
 languages:
 - json
 - bicep
 ---
 
-# Create an NGINXaaS for Azure deployment with User Assigned Managed Identity
+# Create an NGINXaaS for Azure deployment with diagnostic setting logging
 
 ### Usage
 ```
 az deployment group create  --name myName  --resource-group myGroup --template-file azdeploy.json \
-    --parameters subnetName=mySubnet virtualNetworkName=myVnet publicIPName=myPublicIP userAssignedIdentityName=myManagedIdentity capacity=50
+    --parameters subnetName=mySubnet virtualNetworkName=myVnet publicIPName=myPublicIP capacity=50 \
+    diagnosticSettingName=myLoggingSetting \
+    diagnosticSettingStorageAccountID=/subscriptions/mysubscription/resourceGroups/myresourcegroup/providers/Microsoft.Storage/storageAccounts/mystorageaccount
 ```
 
 This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**. This service is still in **Public Preview**.
@@ -23,8 +25,6 @@ If you're new to **NGINXaaS for Azure**, see:
 If you're new to **Managed Identities**, see:
 
 - [Azure Active Directory service](https://azure.microsoft.com/en-us/services/active-directory/)
-- [Azure Managed Identity overview](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview)
-- [Azure Managed Identity template reference](https://docs.microsoft.com/en-us/azure/templates/microsoft.managedidentity/userassignedidentities)
 
 If you're new to template deployment, see:
 
