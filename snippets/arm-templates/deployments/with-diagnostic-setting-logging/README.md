@@ -20,7 +20,7 @@ This template provides a way to deploy a **NGINX Deployment** in a **Resource Gr
 If you're new to **NGINXaaS for Azure**, see:
 
 - [NGINXaaS for Azure Documentation](https://docs.nginx.com/nginxaas/azure/)
-- [NGINXaaS for Azure Managed Identity Documentation](https://docs.nginx.com/nginxaas/azure/management/managed-identity/)
+- [NGINXaaS for Azure Managed Identity Documentation](https://docs.nginx.com/nginxaas/azure/getting-started/managed-identity/)
 
 If you're new to **Managed Identities**, see:
 
