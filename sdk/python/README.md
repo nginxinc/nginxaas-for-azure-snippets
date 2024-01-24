@@ -53,7 +53,7 @@ export AZURE_SUBSCRIPTION_ID="xxx"
 2. Install the dependencies using pip.
 
     ```bash
-    cd nginx-for-azure-snippets/snippets/sdk/python/
+    cd nginx-for-azure-snippets/sdk/python/
     pip install -r requirements.txt
     ```
 
