@@ -25,7 +25,7 @@ param diagnosticSettingName string = 'myDiagnosticSetting'
 @description('Resource ID of the storage account to publish diagnostic setting logs')
 param diagnosticSettingStorageAccountID string
 
-resource nginxDeploymentName_resource 'NGINX.NGINXPLUS/nginxDeployments@2023-04-01' = {
+resource nginxDeploymentName_resource 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
   name: nginxDeploymentName
   location: location
   sku: {

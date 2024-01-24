@@ -68,7 +68,7 @@
         },
         {
             "type": "NGINX.NGINXPLUS/nginxDeployments",
-            "apiVersion": "2023-04-01",
+            "apiVersion": "2023-09-01",
             "name": "[parameters('nginxDeploymentName')]",
             "location": "[parameters('location')]",
             "sku": {
