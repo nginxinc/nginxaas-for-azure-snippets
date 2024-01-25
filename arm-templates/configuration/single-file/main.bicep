@@ -7,7 +7,7 @@ param rootConfigFilePath string = 'nginx.conf'
 @description('The based64 encoded content of the root NGINX configuration file')
 param rootConfigContent string
 
-resource config 'NGINX.NGINXPLUS/nginxDeployments/configurations@2023-04-01' = {
+resource config 'NGINX.NGINXPLUS/nginxDeployments/configurations@2023-09-01' = {
   name: '${nginxDeploymentName}/default'
   properties: {
     rootFile: rootConfigFilePath

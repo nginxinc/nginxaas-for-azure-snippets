@@ -7,7 +7,7 @@ param rootFile string = '/etc/nginx/nginx.conf'
 @description('The based64 encoded NGINX configuration tarball')
 param tarball string
 
-resource config 'NGINX.NGINXPLUS/nginxDeployments/configurations@2023-04-01' = {
+resource config 'NGINX.NGINXPLUS/nginxDeployments/configurations@2023-09-01' = {
   name: '${nginxDeploymentName}/default'
   properties: {
     rootFile: rootFile

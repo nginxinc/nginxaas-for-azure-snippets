@@ -19,7 +19,7 @@ param virtualNetworkName string
 @description('Capacity in NCUs to assign the NGINX deployment')
 param capacity int = 50
 
-resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-04-01' = {
+resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
   name: nginxDeploymentName
   location: location
   sku: {
