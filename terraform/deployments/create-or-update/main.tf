@@ -42,6 +42,38 @@ resource "azurerm_nginx_deployment" "example" {
   tags = var.tags
 }
 
+resource "azurerm_nginx_configuration" "example-config" {
+  nginx_deployment_id = azurerm_nginx_deployment.example.id
+  root_file           = "/etc/nginx/nginx.conf"
+
+  config_file {
+    content = base64encode(<<-EOT
+user nginx;
+worker_processes auto;
+worker_rlimit_nofile 8192;
+pid /run/nginx/nginx.pid;
+
+events {
+    worker_connections 4000;
+}
+
+error_log /var/log/nginx/error.log error;
+
+http {
+    server {
+        listen 80 default_server;
+        server_name localhost;
+        location / {
+            return 200 'Hello World';
+        }
+    }
+}
+EOT
+    )
+    virtual_path = "/etc/nginx/nginx.conf"
+  }
+}
+
 resource "azurerm_role_assignment" "example" {
   scope                = azurerm_nginx_deployment.example.id
   role_definition_name = "Monitoring Metrics Publisher"
