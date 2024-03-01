@@ -34,7 +34,8 @@ resource "azurerm_nginx_deployment" "example" {
 
   # Required for diagnostic setting logging
   identity {
-    type = "SystemAssigned"
+    type = "SystemAssigned, UserAssigned"
+    identity_ids = [module.prerequisites.managed_identity_id]
   }
 
   frontend_public {
