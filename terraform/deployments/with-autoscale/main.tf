@@ -20,13 +20,16 @@ module "prerequisites" {
 }
 
 resource "azurerm_nginx_deployment" "example" {
-  name                      = var.name
-  resource_group_name       = module.prerequisites.resource_group_name
-  sku                       = var.sku
-  location                  = var.location
-  capacity                  = 20
-  automatic_upgrade_channel = "stable"
-  diagnose_support_enabled  = true
+  name                = var.name
+  resource_group_name = module.prerequisites.resource_group_name
+  sku                 = var.sku
+  location            = var.location
+  auto_scale_profile {
+    name          = "testProfile"
+    min_capacity  = 10
+    max_capacity  = 30
+  }
+  diagnose_support_enabled = true
 
   identity {
     type         = "UserAssigned"
@@ -41,37 +44,9 @@ resource "azurerm_nginx_deployment" "example" {
   }
 
   tags = var.tags
-}
 
-resource "azurerm_nginx_configuration" "example-config" {
-  nginx_deployment_id = azurerm_nginx_deployment.example.id
-  root_file           = "/etc/nginx/nginx.conf"
-
-  config_file {
-    content = base64encode(<<-EOT
-user nginx;
-worker_processes auto;
-worker_rlimit_nofile 8192;
-pid /run/nginx/nginx.pid;
-
-events {
-    worker_connections 4000;
-}
-
-error_log /var/log/nginx/error.log error;
-
-http {
-    server {
-        listen 80 default_server;
-        server_name localhost;
-        location / {
-            return 200 'Hello World';
-        }
-    }
-}
-EOT
-    )
-    virtual_path = "/etc/nginx/nginx.conf"
+  lifecycle {
+    ignore_changes = [ capacity ]
   }
 }
 
