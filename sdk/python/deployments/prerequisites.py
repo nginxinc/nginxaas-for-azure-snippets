@@ -44,7 +44,7 @@ def create():
     # Create resource group
     # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/resources
     resource_client.resource_groups.create_or_update(GROUP_NAME, {"location": LOCATION})
-    print("Created a resource group.\n")
+    print(f"Created a resource group: {GROUP_NAME} in location: {LOCATION}.\n")
 
     # Create public ip address
     # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/network/ip
@@ -57,7 +57,7 @@ def create():
             "sku": {"name": "Standard"},
         },
     ).result()
-    print("Created a public IP.\n")
+    print(f"Created a public IP: {PUBLIC_IP_ADDRESS_NAME}.\n")
 
     # Create Network Security Group (NSG)
 
@@ -84,7 +84,7 @@ def create():
             ],
         },
     ).result()
-    print("Created a network security group.\n")
+    print(f"Created a network security group: {NSG_NAME}.\n")
 
     # Create virtual network
     # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/network/virtual_network
@@ -93,7 +93,7 @@ def create():
         VIRTUAL_NETWORK_NAME,
         {"address_space": {"address_prefixes": ["10.0.0.0/16"]}, "location": LOCATION},
     ).result()
-    print("Created a virtual network.\n")
+    print(f"Created a virtual network: {VIRTUAL_NETWORK_NAME}.\n")
 
     # Create delegated subnet
     # https://github.com/Azure-Samples/azure-samples-python-management/tree/main/samples/network/virtual_network
@@ -115,13 +115,13 @@ def create():
             "network_security_group": nsg,
         },
     ).result()
-    print("Created a delegated subnet.\n")
+    print(f"Created a delegated subnet: {SUBNET_NAME}.\n")
 
     # Create user assigned managed identity
     identity = msi_client.user_assigned_identities.create_or_update(
         GROUP_NAME, MANAGED_IDENTITY_NAME, {"location": LOCATION}
     )
-    print("Created a managed identity.\n")
+    print(f"Created a managed identity: {MANAGED_IDENTITY_NAME}.\n")
     return subnet, public_ip, identity
 
 

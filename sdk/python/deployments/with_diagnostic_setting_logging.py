@@ -16,7 +16,7 @@ def main():
     LOCATION = "eastus"
     DEPLOYMENT_NAME = "myDeployment"
     STORAGE_ACCOUNT_NAME = "mystorageaccount12345"
-
+    CONFIGURATION_NAME = "default"
     # Create clients
     # For other authentication approaches, please see: https://pypi.org/project/azure-identity/
     monitoring_client = MonitorManagementClient(
@@ -79,6 +79,46 @@ def main():
     ).result()
     print("Created a deployment:\n{}".format(deployment))
 
+    # Create a configuration on the deployment
+    configuration = nginx_client.configurations.begin_create_or_update(
+        GROUP_NAME,
+        DEPLOYMENT_NAME,
+        CONFIGURATION_NAME,
+        {
+            "properties": {
+                "rootFile": "/etc/nginx/nginx.conf",
+                "files": [
+                    {
+                        "virtualPath": "/etc/nginx/nginx.conf",
+                        "content" : base64.b64encode(bytes(
+"""
+user nginx;
+worker_processes auto;
+worker_rlimit_nofile 8192;
+pid /run/nginx/nginx.pid;
+
+events {
+    worker_connections 4000;
+}
+
+error_log /var/log/nginx/error.log error;
+
+http {
+    server {
+        listen 80 default_server;
+        server_name localhost;
+        location / {
+            return 200 'Hello World';
+        }
+    }
+}
+""", "utf-8")).decode("utf-8")
+                    }
+                ]
+            }
+        },
+    ).result()
+    print("Updated deployment with configuraton: {}".format(configuration))
     # Create diagnostic setting for the deployment
     diagnostic_setting = monitoring_client.diagnostic_settings.create_or_update(
         deployment.id,
