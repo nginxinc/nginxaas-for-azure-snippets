@@ -19,7 +19,7 @@ az deployment group create  --name myName  --resource-group myGroup --template-f
     --parameters certificateName=myCert keyVaultSecretId=https://myVault.vault.azure.net/secrets/myCert
 ```
 
-This template provides a way to deploy a **NGINX Deployment Certificate** to a **NGINX Deployment**. This service is still in **Public Preview**.
+This template provides a way to deploy a **NGINX Deployment Certificate** to a **NGINX Deployment**.
 
 If you're new to **NGINXaaS for Azure**, see:
 

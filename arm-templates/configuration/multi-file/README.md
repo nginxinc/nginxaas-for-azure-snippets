@@ -31,7 +31,7 @@ az deployment group create --name myName --resource-group myGroup --template-fil
     --parameters tarball=$(base64 config.tar.gz) nginxDeploymentName=myDeployment
 ```
 
-This template provides a way to deploy a **NGINX Deployment Configuration** to a **NGINX Deployment**. This service is still in **Public Preview**.
+This template provides a way to deploy a **NGINX Deployment Configuration** to a **NGINX Deployment**.
 
 If you're new to **NGINXaaS for Azure**, see:
 
