@@ -15,7 +15,7 @@ az deployment group create  --name myName  --resource-group myGroup --template-f
     diagnosticSettingStorageAccountID=/subscriptions/mysubscription/resourceGroups/myresourcegroup/providers/Microsoft.Storage/storageAccounts/mystorageaccount
 ```
 
-This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**. This service is still in **Public Preview**.
+This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**.
 
 If you're new to **NGINXaaS for Azure**, see:
 

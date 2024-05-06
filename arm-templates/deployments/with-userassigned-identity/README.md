@@ -13,7 +13,7 @@ az deployment group create  --name myName  --resource-group myGroup --template-f
     --parameters subnetName=mySubnet virtualNetworkName=myVnet publicIPName=myPublicIP userAssignedIdentityName=myManagedIdentity capacity=50
 ```
 
-This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**. This service is still in **Public Preview**.
+This template provides a way to deploy a **NGINX Deployment** in a **Resource Group**.
 
 If you're new to **NGINXaaS for Azure**, see:
 

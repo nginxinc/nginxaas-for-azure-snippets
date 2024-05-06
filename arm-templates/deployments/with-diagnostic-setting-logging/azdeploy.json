@@ -95,6 +95,24 @@
             }
         },
         {
+          "type": "NGINX.NGINXPLUS/nginxDeployments/configurations",
+          "apiVersion": "2024-01-01-preview",
+          "name": "[concat(parameters('nginxDeploymentName'), '/default')]",
+          "dependsOn": [
+            "[resourceId('NGINX.NGINXPLUS/nginxDeployments', parameters('nginxDeploymentName'))]"
+          ],
+          "properties": {
+            "files": [
+              {
+                "content": "CnVzZXIgbmdpbng7Cndvcmtlcl9wcm9jZXNzZXMgYXV0bzsKd29ya2VyX3JsaW1pdF9ub2ZpbGUgODE5MjsKcGlkIC9ydW4vbmdpbngvbmdpbngucGlkOwoKZXZlbnRzIHsKICAgIHdvcmtlcl9jb25uZWN0aW9ucyA0MDAwOwp9CgplcnJvcl9sb2cgL3Zhci9sb2cvbmdpbngvZXJyb3IubG9nIGVycm9yOwoKaHR0cCB7CiAgICBzZXJ2ZXIgewogICAgICAgIGxpc3RlbiA4MCBkZWZhdWx0X3NlcnZlcjsKICAgICAgICBzZXJ2ZXJfbmFtZSBsb2NhbGhvc3Q7CiAgICAgICAgbG9jYXRpb24gLyB7CiAgICAgICAgICAgIHJldHVybiAyMDAgJ0hlbGxvIFdvcmxkJzsKICAgICAgICB9CiAgICB9Cn0K",
+                "virtualPath": "/etc/nginx/nginx.conf"
+              }
+            ],
+            "package": {},
+            "rootFile": "/etc/nginx/nginx.conf"
+          }
+        },
+        {
             "type": "NGINX.NGINXPLUS/nginxDeployments/providers/diagnosticSettings",
             "apiVersion": "2021-05-01-preview",
             "name": "[concat(parameters('nginxDeploymentName'), '/Microsoft.Insights/', parameters('diagnosticSettingName'))]",
