@@ -10,10 +10,7 @@ variable "name" {
 
 variable "storage_account_name" {
   description = "Name of the storage account to store NGINX logs."
-}
-
-variable "storage_account_resource_group" {
-  description = "Resource group that contains the storage account to store NGINX logs."
+  default     = "examplenginxstorageacct"
 }
 
 variable "sku" {
