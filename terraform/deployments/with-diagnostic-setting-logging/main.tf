@@ -19,9 +19,14 @@ module "prerequisites" {
   tags     = var.tags
 }
 
-data "azurerm_storage_account" "example" {
-  name                = var.storage_account_name
-  resource_group_name = var.storage_account_resource_group
+resource "azurerm_storage_account" "example" {
+  name                     = var.storage_account_name
+  resource_group_name      = module.prerequisites.resource_group_name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "GRS"
+
+  tags = var.tags
 }
 
 resource "azurerm_nginx_deployment" "example" {
@@ -83,7 +88,7 @@ EOT
 resource "azurerm_monitor_diagnostic_setting" "example" {
   name               = "${azurerm_nginx_deployment.example.name}-logs"
   target_resource_id = azurerm_nginx_deployment.example.id
-  storage_account_id = data.azurerm_storage_account.example.id
+  storage_account_id = azurerm_storage_account.example.id
 
   enabled_log {
     category = "NginxLogs"
