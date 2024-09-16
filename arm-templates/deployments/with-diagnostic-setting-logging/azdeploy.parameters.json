@@ -11,7 +11,7 @@
             "type": "string"
         },
         "sku": {
-            "value": "standard_Monthly",
+            "value": "standardv2_Monthly",
             "type": "string"
         },
         "publicIPName": {

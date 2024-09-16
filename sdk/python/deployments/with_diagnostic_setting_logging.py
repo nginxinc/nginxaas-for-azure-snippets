@@ -58,7 +58,7 @@ def main():
         GROUP_NAME,
         DEPLOYMENT_NAME,
         {
-            "sku": {"name": "standard_Monthly"},
+            "sku": {"name": "standardv2_Monthly"},
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
             "identity": {
