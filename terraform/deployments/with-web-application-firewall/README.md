@@ -1,4 +1,4 @@
-# Manage an NGINXaaS for Azure deployment.
+# Manage an NGINXaaS for Azure deployment with Web Application Firewall enabled.
 
 ### Usage
 
