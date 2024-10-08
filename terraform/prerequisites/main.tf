@@ -71,3 +71,21 @@ resource "azurerm_user_assigned_identity" "example" {
 
   tags = var.tags
 }
+
+data "azurerm_client_config" "current" {}
+
+# This keyvault is NOT firewalled.
+resource "azurerm_key_vault" "example" {
+  name                      = var.name
+  location                  = var.location
+  resource_group_name       = azurerm_resource_group.example.name
+  enable_rbac_authorization = true
+
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  soft_delete_retention_days = 7
+  purge_protection_enabled   = false
+
+  sku_name = "standard"
+
+  tags = var.tags
+}

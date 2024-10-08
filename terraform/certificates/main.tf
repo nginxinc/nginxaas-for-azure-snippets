@@ -25,32 +25,16 @@ module "prerequisites" {
   tags     = var.tags
 }
 
-# This keyvault is NOT firewalled.
-resource "azurerm_key_vault" "example" {
-  name                      = var.name
-  location                  = var.location
-  resource_group_name       = module.prerequisites.resource_group_name
-  enable_rbac_authorization = true
-
-  tenant_id                  = data.azurerm_client_config.current.tenant_id
-  soft_delete_retention_days = 7
-  purge_protection_enabled   = false
-
-  sku_name = "standard"
-
-  tags = var.tags
-}
-
 # This will give the current user admin permissions on the key vault
 resource "azurerm_role_assignment" "current_user" {
-  scope                = azurerm_key_vault.example.id
+  scope                = module.prerequisites.key_vault_id
   role_definition_name = "Key Vault Administrator"
   principal_id         = data.azurerm_client_config.current.object_id
 }
 
 resource "azurerm_key_vault_certificate" "example" {
   name         = var.name
-  key_vault_id = azurerm_key_vault.example.id
+  key_vault_id = module.prerequisites.key_vault_id
 
   certificate_policy {
     issuer_parameters {
@@ -101,7 +85,7 @@ resource "azurerm_key_vault_certificate" "example" {
 }
 
 resource "azurerm_role_assignment" "example" {
-  scope                = azurerm_key_vault.example.id
+  scope                = module.prerequisites.key_vault_id
   role_definition_name = "Key Vault Secrets User"
   principal_id         = module.prerequisites.managed_identity_principal_id
 }
