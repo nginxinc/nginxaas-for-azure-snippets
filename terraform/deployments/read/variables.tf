@@ -1,6 +1,6 @@
 variable "location" {
   description = "Azure location name for NGINXaaS deployment."
-  default     = "eastus2"
+  default     = "eastus"
 }
 
 variable "name" {

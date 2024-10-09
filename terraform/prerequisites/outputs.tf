@@ -22,3 +22,8 @@ output "subnet_id" {
   description = "ID of delegated subnet."
   value       = azurerm_subnet.example.id
 }
+
+output "key_vault_id" {
+  description = "ID of Key Vault."
+  value       = azurerm_key_vault.example.id
+}
