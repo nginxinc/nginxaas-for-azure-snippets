@@ -34,9 +34,15 @@ resource "azurerm_nginx_deployment" "example" {
   }
 
   frontend_public {
-    ip_address = [module.prerequisites.public_ip_address_id]
+    ip_address = [module.prerequisites.public_ipv4_address_id]
+    # Use following to enable the frontend only with an ipv6 address. The approporiate prerequisite blocks need to be uncommented as well.
+    #ip_address = [module.prerequisites.public_ipv6_address_id]
+    # Use following to enable the frontend in a dual stack mode. The approporiate prerequisite blocks need to be uncommented as well.
+    #ip_address = [module.prerequisites.public_ipv4_address_id, module.prerequisites.public_ipv6_address_id]
   }
   network_interface {
+    # Warning: Please ensure that subnet_id has both IPv4 and IPv6 address prefixes anytime module.prerequisites.public_ipv6_address_id
+    # is used in the frontend configuration. Please look at prerequisites to see how this can be done.
     subnet_id = module.prerequisites.subnet_id
   }
 

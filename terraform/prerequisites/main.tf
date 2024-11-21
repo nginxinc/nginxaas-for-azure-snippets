@@ -13,11 +13,23 @@ resource "azurerm_public_ip" "example" {
   allocation_method   = "Static"
 }
 
+# Uncomment ipv6_example resource block to use an IPv6 Public IP in tandem with above IPv4 Public IP
+# resource "azurerm_public_ip" "ipv6_example" {
+#  name                = "${var.name}-ipv6"
+#  resource_group_name = azurerm_resource_group.example.name
+#  location            = azurerm_resource_group.example.location
+#  sku                 = "Standard"
+#  allocation_method   = "Static"
+#  ip_version   = "IPv6"
+#}
+
 resource "azurerm_virtual_network" "example" {
   name                = var.name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   address_space       = ["10.0.0.0/16"]
+ # Replace above line with following line after uncommenting to use IPv6 IP addresses
+ # address_space      = ["10.0.0.0/16", "fd00:1234:5678::/48"] 
 
   tags = var.tags
 }
@@ -27,6 +39,8 @@ resource "azurerm_subnet" "example" {
   resource_group_name  = azurerm_resource_group.example.name
   virtual_network_name = azurerm_virtual_network.example.name
   address_prefixes     = ["10.0.1.0/24"]
+ # Replace above line with following line after uncommenting to use IPv6 IP addresses
+ # address_prefixes    = ["10.0.1.0/24", "fd00:1234:5678:0000::/64"]  
   delegation {
     name = "nginx"
     service_delegation {
