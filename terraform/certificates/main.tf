@@ -104,7 +104,7 @@ resource "azurerm_nginx_deployment" "example" {
   }
 
   frontend_public {
-    ip_address = [module.prerequisites.public_ip_address_id]
+    ip_address = [module.prerequisites.public_ipv4_address_id]
   }
   network_interface {
     subnet_id = module.prerequisites.subnet_id
