@@ -96,7 +96,7 @@
         },
         {
           "type": "NGINX.NGINXPLUS/nginxDeployments/configurations",
-          "apiVersion": "2024-01-01-preview",
+          "apiVersion": "2025-03-01-preview",
           "name": "[concat(parameters('nginxDeploymentName'), '/default')]",
           "dependsOn": [
             "[resourceId('NGINX.NGINXPLUS/nginxDeployments', parameters('nginxDeploymentName'))]"
@@ -114,7 +114,7 @@
         },
         {
             "type": "NGINX.NGINXPLUS/nginxDeployments/providers/diagnosticSettings",
-            "apiVersion": "2021-05-01-preview",
+            "apiVersion": "2025-03-01-preview",
             "name": "[concat(parameters('nginxDeploymentName'), '/Microsoft.Insights/', parameters('diagnosticSettingName'))]",
             "properties": {
                 "storageAccountId": "[parameters('diagnosticSettingStorageAccountID')]",

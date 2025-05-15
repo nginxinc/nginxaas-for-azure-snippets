@@ -54,7 +54,7 @@ resource nginxDeploymentName_resource 'NGINX.NGINXPLUS/nginxDeployments@2023-09-
   }
 }
 
-resource nginxDeploymentName_Microsoft_Insights_diagnosticSettingName 'NGINX.NGINXPLUS/nginxDeployments/providers/diagnosticSettings@2021-05-01-preview' = {
+resource nginxDeploymentName_Microsoft_Insights_diagnosticSettingName 'NGINX.NGINXPLUS/nginxDeployments/providers/diagnosticSettings@2025-03-01-preview' = {
   name: '${nginxDeploymentName}/Microsoft.Insights/${diagnosticSettingName}'
   properties: {
     storageAccountId: diagnosticSettingStorageAccountID
