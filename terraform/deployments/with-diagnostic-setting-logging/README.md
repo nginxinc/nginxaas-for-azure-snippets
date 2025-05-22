@@ -2,7 +2,7 @@
 
 ### Usage
 
-The code in this directory can be used to managed an **NGINXaaS for Azure deployment**.
+The code in this directory can be used to manage an **NGINXaaS for Azure deployment**.
 
 To create a deployment with diagnostic setting for logging, run the following commands:
 
