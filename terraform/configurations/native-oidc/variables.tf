@@ -31,12 +31,19 @@ variable "issuer" {
   description = "OIDC issuer URL"
   type        = string
 }
+
 variable "client_id" {
   description = "OIDC client ID"
   type        = string
 }
+
 variable "client_secret" {
   description = "OIDC client secret"
   type        = string
   sensitive   = true
+}
+
+variable "resolver" {
+  description = "OIDC resolver"
+  type        = string
 }

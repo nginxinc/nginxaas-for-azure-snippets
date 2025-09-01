@@ -95,6 +95,7 @@ locals {
     issuer        = var.issuer
     client_id     = var.client_id
     client_secret = var.client_secret
+    resolver      = var.resolver
   })
 }
 
@@ -140,11 +141,6 @@ resource "azurerm_nginx_configuration" "example" {
   config_file {
     content      = base64encode(local.nginx_config)
     virtual_path = "/etc/nginx/nginx.conf"
-  }
-
-  config_file {
-    content      = filebase64("${path.module}/api.conf")
-    virtual_path = "/etc/nginx/site/api.conf"
   }
 
   depends_on = [

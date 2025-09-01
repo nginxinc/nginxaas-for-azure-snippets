@@ -1,8 +1,10 @@
 http {
-    resolver 168.63.129.16 ipv4=on ipv6=off valid=300s;
+    # make sure your public DNS resolver is specified with the resolver directive, for example using azure dns for resolving the microsoft entra id
+    resolver ${resolver} ipv4=on ipv6=off valid=300s;
     keyval_zone zone=oidc:8M     state=/opt/oidc_id_tokens.json     timeout=1h sync;
 
     oidc_provider entra {
+        # issuer URL, client_id, client_secret values are obtained from IdP configuration (microsoft entra id in this example)
         issuer ${issuer};
         client_id ${client_id};
         client_secret ${client_secret};

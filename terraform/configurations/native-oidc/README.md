@@ -32,7 +32,7 @@ terraform destroy --auto-approve
 
 - Configure SSL/TLS Certificates.
 - Configure the IdP. This example configuration is using the [Microsoft Entra ID](https://docs.nginx.com/nginx/deployment-guides/single-sign-on/entra-id/). For more information,    please look at [different OIDC Provider Servers and Services](https://docs.nginx.com/nginx/deployment-guides/single-sign-on/).
-- Please provide the issuer_url, client_id, client_secret values using the terraform.tfvars as shown in terraform.tfvars.example .
+- Use the values for issuer_url, client_id, client_secret you obtained from your IdP configuration.
 
 ## Notes
 
