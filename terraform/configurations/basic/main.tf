@@ -13,7 +13,7 @@ provider "azurerm" {
 }
 
 module "prerequisites" {
-  source   = "../prerequisites"
+  source   = "../../prerequisites"
   location = var.location
   name     = var.name
   tags     = var.tags
