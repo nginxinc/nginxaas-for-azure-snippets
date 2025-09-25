@@ -92,10 +92,18 @@ resource "azurerm_role_assignment" "example" {
 
 locals {
   nginx_config = templatefile("${path.module}/nginx.conf.tpl", {
-    issuer        = var.issuer
-    client_id     = var.client_id
-    client_secret = var.client_secret
-    resolver      = var.resolver
+    resolver = var.resolver
+  })
+
+  # Use provided post_logout_uri if specified, otherwise auto-generate using IP address
+  effective_post_logout_uri = var.post_logout_uri != "" ? var.post_logout_uri : "https://${azurerm_nginx_deployment.example.ip_address}/post_logout/"
+  
+  # Protected OIDC provider configuration with sensitive client secret
+  oidc_provider_config = templatefile("${path.module}/oidc-secrets.conf.tpl", {
+    issuer          = var.issuer
+    client_id       = var.client_id
+    client_secret   = var.client_secret
+    post_logout_uri = local.effective_post_logout_uri
   })
 }
 
@@ -141,6 +149,12 @@ resource "azurerm_nginx_configuration" "example" {
   config_file {
     content      = base64encode(local.nginx_config)
     virtual_path = "/etc/nginx/nginx.conf"
+  }
+
+  # Protected configuration file containing the entire OIDC provider block
+  protected_file {
+    content      = base64encode(local.oidc_provider_config)
+    virtual_path = "/etc/nginx/oidc-provider.conf"
   }
 
   depends_on = [
