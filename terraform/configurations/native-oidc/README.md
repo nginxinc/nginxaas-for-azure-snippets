@@ -41,7 +41,7 @@ terraform destroy --auto-approve
 - For more details on how to configure the OIDC in NGINXaaS, please refer to the references below
    - https://docs.nginx.com/nginx/deployment-guides/single-sign-on/entra-id/
    - https://docs.nginx.com/nginxaas/azure/quickstart/runtime-state-sharing/
-   - https://docs.nginx.com/nginx/releases/#r34
+   - https://docs.nginx.com/nginx/releases/#r35
    - https://community.f5.com/kb/technicalarticles/f5-nginx-plus-r34-release-now-available/340300
    - https://nginx.org/en/docs/http/ngx_http_oidc_module.html
    - https://docs.nginx.com/nginxaas/azure/getting-started/ssl-tls-certificates/
