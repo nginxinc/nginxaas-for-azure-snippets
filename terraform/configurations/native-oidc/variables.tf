@@ -47,3 +47,9 @@ variable "resolver" {
   description = "OIDC resolver"
   type        = string
 }
+
+variable "post_logout_uri" {
+  description = "OIDC post logout uri. If not provided, will default to https://IP_ADDRESS/post_logout/ (matching the example configuration). You can change this to match your custom logout endpoint."
+  type        = string
+  default     = ""  # Empty string means use auto-generated URI with /post_logout/ path
+}

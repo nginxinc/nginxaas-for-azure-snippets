@@ -3,13 +3,8 @@ http {
     resolver ${resolver} ipv4=on ipv6=off valid=300s;
     keyval_zone zone=oidc:8M     state=/opt/oidc_id_tokens.json     timeout=1h sync;
 
-    oidc_provider entra {
-        # issuer URL, client_id, client_secret values are obtained from IdP configuration (microsoft entra id in this example)
-        issuer ${issuer};
-        client_id ${client_id};
-        client_secret ${client_secret};
-        session_store oidc;
-    }
+    # Include OIDC provider configuration from protected file
+    include /etc/nginx/oidc-provider.conf;
     server {
         listen 443 ssl;
         server_name demo.example.com;
@@ -23,6 +18,14 @@ http {
             proxy_set_header name $oidc_claim_name;
 
             proxy_pass http://127.0.0.1:8080;
+        }
+
+        # Post-logout endpoint - this example uses /post_logout/ 
+        # You can change this path or customize the response as needed
+        # Make sure to update the post_logout_uri variable accordingly
+        location /post_logout/ {
+            return 200 "You have been logged out.\n";
+            default_type text/plain;
         }
     }
 
