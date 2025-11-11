@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 param nginxDeploymentName string = 'myDeployment'
 
 @description('SKU of NGINX deployment')
-param sku string = 'standardv2_Monthly'
+param sku string = 'standardv3_Monthly'
 
 @description('Name of public IP')
 param publicIPName string = 'myPublicIP'
