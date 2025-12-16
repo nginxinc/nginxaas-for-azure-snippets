@@ -11,7 +11,7 @@
             "type": "string"
         },
         "sku": {
-            "value": "standardv2_Monthly",
+            "value": "standardv3_Monthly",
             "type": "string"
         },
         "subnetName": {
