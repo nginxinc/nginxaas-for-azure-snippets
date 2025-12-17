@@ -43,7 +43,6 @@ def main():
                 "userAssignedIdentities": {identity.id: {}},
             },
             "properties": {
-                "enableDiagnosticSupport": False,
                 "networkProfile": network_profile_public,
                 "scalingProperties": {"capacity": 20},
                 "userProfile": {"preferredEmail": "user@f5.com"},
@@ -56,7 +55,7 @@ def main():
     deployment = nginx_client.deployments.get(GROUP_NAME, DEPLOYMENT_NAME)
     print("Get deployment:\n{}".format(deployment))
 
-    # Update deployment with a new tag and enable metrics
+    # Update deployment with a new tag
     deployment = nginx_client.deployments.begin_update(
         GROUP_NAME,
         DEPLOYMENT_NAME,
@@ -64,9 +63,6 @@ def main():
             "sku": {"name": "standardv3_Monthly"},
             "tags": {"myNewTag": "myNewValue"},
             "location": LOCATION,
-            "properties": {
-                "enableDiagnosticSupport": True,
-            },
         },
     ).result()
     print("Updated deployment:\n{}".format(deployment))

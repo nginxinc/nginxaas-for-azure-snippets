@@ -114,7 +114,6 @@ resource "azurerm_nginx_deployment" "example" {
   capacity                 = 20
   location                 = var.location
   automatic_upgrade_channel = var.automatic_upgrade_channel
-  diagnose_support_enabled = false
   
   identity {
     type         = "UserAssigned"

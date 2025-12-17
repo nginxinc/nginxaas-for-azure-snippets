@@ -65,7 +65,6 @@ def main():
                 "type": "SystemAssigned",
             },
             "properties": {
-                "enableDiagnosticSupport": True,
                 "networkProfile": {
                     "networkInterfaceConfiguration": {"subnetId": subnet.id},
                     "frontendIPConfiguration": {

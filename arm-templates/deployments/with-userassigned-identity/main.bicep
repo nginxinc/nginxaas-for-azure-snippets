@@ -19,9 +19,6 @@ param userAssignedIdentityName string
 @description('Name of customer virtual network')
 param virtualNetworkName string
 
-@description('Enable publishing metrics data from NGINX deployment')
-param enableMetrics bool = false
-
 @description('Capacity in NCUs to assign the NGINX deployment')
 param capacity int = 50
 
@@ -54,7 +51,6 @@ resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
     }
   }
   properties: {
-    enableDiagnosticsSupport: enableMetrics
     networkProfile: {
       frontEndIPConfiguration: {
         publicIPAddresses: [

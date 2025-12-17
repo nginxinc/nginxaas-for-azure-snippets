@@ -49,13 +49,6 @@
                 "description": "Name of customer virtual network"
             }
         },
-        "enableMetrics": {
-            "type": "bool",
-            "defaultValue": false,
-            "metadata": {
-                "description": "Enable publishing metrics data from NGINX deployment"
-            }
-        },
         "capacity": {
             "type": "int",
             "defaultValue": 50,
@@ -95,7 +88,6 @@
                 }
             },
             "properties": {
-                "enableDiagnosticsSupport": "[parameters('enableMetrics')]",
                 "networkProfile": {
                     "frontEndIPConfiguration": {
                         "publicIPAddresses": [

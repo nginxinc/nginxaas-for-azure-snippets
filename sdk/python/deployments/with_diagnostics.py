@@ -74,7 +74,6 @@ def main():
                 "userAssignedIdentities": {identity.id: {}},
             },
             "properties": {
-                "enableDiagnosticSupport": True,
                 "networkProfile": {
                     "networkInterfaceConfiguration": {"subnetId": subnet.id},
                     "frontendIPConfiguration": {

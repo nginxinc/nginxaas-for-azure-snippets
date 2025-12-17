@@ -35,7 +35,6 @@ resource "azurerm_nginx_deployment" "example" {
   sku                      = var.sku
   location                 = var.location
   capacity                 = 20
-  diagnose_support_enabled = false # This enables metrics to azure monitoring, not nginx logs
 
   # Required for diagnostic setting logging
   identity {
