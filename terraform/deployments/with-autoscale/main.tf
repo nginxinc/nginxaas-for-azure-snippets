@@ -29,7 +29,6 @@ resource "azurerm_nginx_deployment" "example" {
     min_capacity  = 10
     max_capacity  = 30
   }
-  diagnose_support_enabled = true
 
   identity {
     type         = "UserAssigned"

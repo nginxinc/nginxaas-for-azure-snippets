@@ -25,7 +25,6 @@ resource "azurerm_nginx_deployment" "example" {
   sku                      = var.sku
   capacity                 = 20
   location                 = var.location
-  diagnose_support_enabled = false
 
   identity {
     type         = "UserAssigned"

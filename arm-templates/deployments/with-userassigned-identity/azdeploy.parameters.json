@@ -30,10 +30,6 @@
             "value": "myVirtualNetwork",
             "type": "string"
         },
-        "enableMetrics": {
-            "value": false,
-            "type": "bool"
-        },
         "capacity": {
             "value": 50,
             "type": "int"
