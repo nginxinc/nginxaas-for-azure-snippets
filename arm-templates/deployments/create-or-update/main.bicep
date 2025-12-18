@@ -41,7 +41,6 @@ resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
     name: sku
   }
   properties: {
-    enableDiagnosticsSupport: false
     networkProfile: {
       frontEndIPConfiguration: {
         publicIPAddresses: [
