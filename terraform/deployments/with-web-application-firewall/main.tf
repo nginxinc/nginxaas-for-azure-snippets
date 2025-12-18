@@ -42,7 +42,7 @@ resource "azurerm_nginx_deployment" "example" {
   tags = var.tags
 }
 
-resource "azurerm_nginx_configuration" "example-config" {
+resource "azurerm_nginx_configuration" "example" {
   nginx_deployment_id = azurerm_nginx_deployment.example.id
   root_file           = "/etc/nginx/nginx.conf"
 
