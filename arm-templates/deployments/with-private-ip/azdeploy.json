@@ -59,7 +59,6 @@
                 "name": "[parameters('sku')]"
             },
             "properties": {
-                "enableDiagnosticsSupport": false,
                 "networkProfile": {
                     "frontEndIPConfiguration": {
                         "privateIPAddresses": [
