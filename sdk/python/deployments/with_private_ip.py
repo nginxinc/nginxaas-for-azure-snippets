@@ -45,8 +45,9 @@ def main():
             "sku": {"name": "standardv3_Monthly"},
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
+            # REQUIRED: System-assigned managed identity is required for all new deployments
             "identity": {
-                "type": "UserAssigned",
+                "type": "SystemAssigned, UserAssigned",
                 "userAssignedIdentities": {identity.id: {}},
             },
             "properties": {

@@ -71,6 +71,9 @@
             "apiVersion": "2023-09-01",
             "name": "[parameters('nginxDeploymentName')]",
             "location": "[parameters('location')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "sku": {
                 "name": "[parameters('sku')]"
             },

@@ -26,10 +26,13 @@ resource "azurerm_nginx_deployment" "example" {
   location                  = var.location
   capacity                  = 20
   automatic_upgrade_channel = "stable"
+
+  # REQUIRED: System-assigned managed identity is required for all new deployments
   identity {
-    type         = "UserAssigned"
+    type         = "SystemAssigned, UserAssigned"
     identity_ids = [module.prerequisites.managed_identity_id]
   }
+
   frontend_public {
     ip_address = [module.prerequisites.public_ipv4_address_id]
   }
