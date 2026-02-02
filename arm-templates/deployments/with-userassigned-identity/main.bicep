@@ -44,10 +44,9 @@ resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
     name: sku
   }
   identity: {
-    type: 'UserAssigned'
+    type: 'SystemAssigned, UserAssigned'
     userAssignedIdentities: {
-      '${resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', userAssignedIdentityName)}': {
-      }
+      '${resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', userAssignedIdentityName)}': {}
     }
   }
   properties: {

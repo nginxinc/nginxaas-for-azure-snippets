@@ -22,6 +22,9 @@ param capacity int = 50
 resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
   name: nginxDeploymentName
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   sku: {
     name: sku
   }

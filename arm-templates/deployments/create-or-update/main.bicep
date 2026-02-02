@@ -37,6 +37,9 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2020-08-01' = {
 resource deployment 'NGINX.NGINXPLUS/nginxDeployments@2023-09-01' = {
   name: nginxDeploymentName
   location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
   sku: {
     name: sku
   }

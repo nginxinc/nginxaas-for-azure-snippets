@@ -39,7 +39,7 @@ def main():
             "tags": {"myKey": "myValue"},
             "location": LOCATION,
             "identity": {
-                "type": "UserAssigned",
+                "type": "SystemAssigned, UserAssigned",
                 "userAssignedIdentities": {identity.id: {}},
             },
             "properties": {
