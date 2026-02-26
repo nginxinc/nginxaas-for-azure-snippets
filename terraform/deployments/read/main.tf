@@ -15,6 +15,9 @@ provider "azurerm" {
 data "azurerm_nginx_deployment" "example" {
   name                = var.name
   resource_group_name = var.name
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 data "azurerm_nginx_configuration" "example-default-conf" {
